@@ -34,6 +34,9 @@ async def send_welcome(message: types.Message):
 async def send_welcome(message: types.Message):
     r = requests.get('https://api.prontera.ru/api/v3/ru_prime/random_store_data/?limit=1')
     info = json.loads(r.content)
+    if len(info['results]) == 0:
+        await message.answer('`No data available`', parse_mode='markdown')
+        return
     info = info['results'][0]
     info = info['item']
     name = info['name']
@@ -55,6 +58,9 @@ async def send_welcome(message: types.Message):
 async def send_welcome(message: types.Message):
     r = requests.get('https://api.prontera.ru/api/v3/ru_prime/random_store/?limit=1')
     info = json.loads(r.content)
+    if len(info['results]) == 0:
+        await message.answer('`No data available`', parse_mode='markdown')
+        return
     info = info['results'][0]
     title = info['title']
     x = info['last_x']
@@ -72,6 +78,9 @@ async def send_welcome(message: types.Message):
 async def send_welcome(message: types.Message):
     r = requests.get('https://api.prontera.ru/api/v3/ru_prime/random_player/?limit=1')
     info = json.loads(r.content)
+    if len(info['results]) == 0:
+        await message.answer('`No data available`', parse_mode='markdown')
+        return
     info = info['results'][0]
     name = info['name']
     base = info['base_level']
@@ -102,10 +111,10 @@ async def process_message(message: types.Message, state: FSMContext):
     dom = etree.HTML(str(soup))
     elem = dom.xpath('//div[@id="contents"]//a')
     if len(elem) == 0:
-        url = 'No results found'
+        url = '`No results found`'
     else:
         url = 'https://www.youtube.com' + elem[0].xpath('@href')[0]
-    await message.answer(url)
+    await message.answer(url, parse_mode='markdown')
     await state.finish()
 
 
