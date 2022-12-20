@@ -34,7 +34,7 @@ async def send_welcome(message: types.Message):
 async def send_welcome(message: types.Message):
     r = requests.get('https://api.prontera.ru/api/v3/ru_prime/random_store_data/?limit=1')
     info = json.loads(r.content)
-    if len(info['results]) == 0:
+    if len(info['results']) == 0:
         await message.answer('`No data available`', parse_mode='markdown')
         return
     info = info['results'][0]
@@ -58,7 +58,7 @@ async def send_welcome(message: types.Message):
 async def send_welcome(message: types.Message):
     r = requests.get('https://api.prontera.ru/api/v3/ru_prime/random_store/?limit=1')
     info = json.loads(r.content)
-    if len(info['results]) == 0:
+    if len(info['results']) == 0:
         await message.answer('`No data available`', parse_mode='markdown')
         return
     info = info['results'][0]
@@ -78,7 +78,7 @@ async def send_welcome(message: types.Message):
 async def send_welcome(message: types.Message):
     r = requests.get('https://api.prontera.ru/api/v3/ru_prime/random_player/?limit=1')
     info = json.loads(r.content)
-    if len(info['results]) == 0:
+    if len(info['results']) == 0:
         await message.answer('`No data available`', parse_mode='markdown')
         return
     info = info['results'][0]
